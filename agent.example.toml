@@ -1,0 +1,22 @@
+[agent]
+# 自动寻找桌面版；找不到时填写本机路径，三种示例选择一种。
+# Windows: C:/path/to/DeepSeek Harness/DeepSeek Harness.exe
+# macOS: /Applications/DeepSeek Harness.app/Contents/MacOS/DeepSeek Harness
+# Linux: /opt/deepseek-harness/deepseek-harness
+# dsh_executable = '/absolute/path/to/desktop-executable'
+
+# 使用独立 CLI 时填写启动参数数组，优先于桌面版；需要支持 --profile headless 和 --json。
+# Unix 可使用 PATH 中的 dsh：dsh_command = ['dsh']
+# Windows 使用 node.exe 和 CLI 脚本的绝对路径，避免通过 .cmd/.bat 二次解释命令。
+# dsh_command = ['node', '/absolute/path/to/cli.js']
+
+# 不填写时读取 DSH_HOME 环境变量，再回退到用户目录下的 .dsh。
+# dsh_home = '~/.dsh'
+
+# 相对路径以本配置文件所在目录为基准。
+data_dir = '.agent-data'
+output_dir = 'outputs'
+model = 'deepseek-flash'
+timeout_seconds = 300
+
+# API Key 填写在同目录 .env 的 DEEPSEEK_API_KEY= 后面，不放在此文件。
