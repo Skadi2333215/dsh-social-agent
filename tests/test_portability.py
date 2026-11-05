@@ -19,7 +19,8 @@ class PortabilityTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
-        self.root = Path(self.temporary.name)
+        # 临时目录可能使用 Windows 短路径或 macOS 别名，与生产代码统一为真实路径。
+        self.root = Path(self.temporary.name).resolve()
         self.config = make_config(self.root)
 
     def test_desktop_resource_layouts(self):

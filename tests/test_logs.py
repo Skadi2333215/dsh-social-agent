@@ -14,7 +14,8 @@ class LogExporterTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
-        self.root = Path(self.temporary.name)
+        # 临时目录可能使用 Windows 短路径或 macOS 别名，与生产代码统一为真实路径。
+        self.root = Path(self.temporary.name).resolve()
         self.home, self.cwd = self.root / "dsh", self.root / "中文工作目录"
         self.cwd.mkdir()
         self.exporter = LogExporter(self.home)

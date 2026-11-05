@@ -41,7 +41,7 @@ class ConfigTests(unittest.TestCase):
 
     def test_relative_paths_and_environment_precedence(self):
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
+            root = Path(temporary).resolve()
             path = root / "agent.toml"
             path.write_text('[agent]\nmodel="configured-model"\ndata_dir="state"\ntimeout_seconds=21\n', encoding="utf-8")
             with patch.dict(os.environ, {"AGENT_MODEL": "environment-model", "USERPROFILE": str(root), "HOME": str(root)}, clear=True), patch("social_agent.config.find_dsh_executable", return_value=None):
@@ -102,7 +102,7 @@ class CliTests(unittest.TestCase):
 
     def test_export_command_does_not_require_credentials(self):
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
+            root = Path(temporary).resolve()
             config = make_config(root)
             write_log(config.dsh_home, root)
             output = io.StringIO()
